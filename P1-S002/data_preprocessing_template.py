@@ -18,6 +18,20 @@ dfY = pd.DataFrame(y)
 from sklearn.preprocessing import Imputer
 imputer = Imputer(missing_values='NaN', strategy='mean', axis = 0);
 imputer.fit(X[:, 1:3]);
+X[:, 1:3] = imputer.transform(X[:, 1:3]);
+
+# Encoding categorical data
+# from sklearn.preprocessing import LabelEncoder
+# labelencoder_X = LabelEncoder()
+# X[:, 0] = labelencoder_X.fit_transform(X[:, 0])
+
+# Dummy Encoding
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+onehotencoder = OneHotEncoder(categorical_features = [0])
+X = onehotencoder.fit_transform(X).toarray()
+labelencoder_y = LabelEncoder()
+y = labelencoder_y.fit_transform(y)
+
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.cross_validation import train_test_split
